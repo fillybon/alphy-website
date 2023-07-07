@@ -313,7 +313,7 @@ export default function Welcome({ hasActiveSub, credit }) {
 							className="peer w-full border-t-blue-gray-500 h-full bg-white dark:bg-mildDarkMode
 										text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0
 										enabled:hover:border-green-400 enabled:hover:border-2 enabled:hover:animate-pulse
-										enabled:focus:hover:border-t-transparent enabled:focus:hover:animate-none
+										enabled:focus:hover:border-t-transparent enabled:focus:hover:animate-none duration-500
 										disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border
 										placeholder-shown:border-blue-gray-200 dark:place-holder-shown:border-t-darkMode
 										placeholder-shown:border-t-blue-gray-200 border focus:border-2  focus:border-t-transparent
