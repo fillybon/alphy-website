@@ -22,13 +22,16 @@ function WelcomeFeed(props) {
 	const currentUser = props.currentUser;
 
 	const [inputValue, setInputValue] = useState('');
+
 	const [offsetPersonal, setOffsetPersonal] = useState(0);
 	const [hasMorePersonal, setHasMorePersonal] = useState(false);
 	const [isLoadingPersonal, setIsLoadingPersonal] = useState(true);
 	const [dataPersonal, setDataPersonal] = useState([]);
+
 	const [submitted, setSubmitted] = useState(false);
 	const [called, setCalled] = useState(false);
 	const [ready, setReady] = useState(false);
+
 	const [offsetUploads, setOffsetUploads] = useState(0);
 	const [hasMoreUploads, setHasMoreUploads] = useState(false);
 	const [dataUploads, setDataUploads] = useState([]);
@@ -38,19 +41,16 @@ function WelcomeFeed(props) {
 	const [uploadProgress, setUploadProgress] = useState(0);
 	const [uploadDuration, setUploadDuration] = useState('');
 	const [uploadTitle, setUploadTitle] = useState('');
+
 	const [file, setFile] = useState(null);
 	const [fileUploading, setFileUploading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState(false);
+
 	const [offsetBookmarks, setOffsetBookmarks] = useState(0);
 	const [hasMoreBookmarks, setHasMoreBookmarks] = useState(false);
 	const [dataBookmarks, setDataBookmarks] = useState([]);
 	const [isLoadingBookmarks, setIsLoadingBookmarks] = useState(true);
 	const [firstTimeBookmarks, setFirstTimeBookmarks] = useState(true);
-
-	const [myWorks, setMyWorks] = useState(true);
-	const [myUploads, setMyUploads] = useState(false);
-	const [myBookmarks, setMyBookmarks] = useState(false);
-	const [global, setGlobal] = useState(false);
 
 	const [feedTab, setFeedTab] = useState(
 		localStorage.getItem('feedTab') !== null ? localStorage.getItem('feedTab') : 'my_works',
@@ -328,16 +328,16 @@ function WelcomeFeed(props) {
 		}
 	};
 	const loadMore = () => {
-		if (global) {
+		if (feedTab === 'global') {
 			setOffset(offset + limit);
 			getData(offset + limit, false, true);
-		} else if (myWorks) {
+		} else if (feedTab === 'my_works') {
 			setOffsetPersonal(offsetPersonal + limit);
 			getDataPersonal(offsetPersonal + limit, false, true);
-		} else if (myUploads) {
+		} else if (feedTab === 'my_uploads') {
 			setOffsetUploads(offsetUploads + limit);
 			getDataUploads(offsetUploads + limit, false, true, search);
-		} else if (myBookmarks) {
+		} else if (feedTab === 'my_bookmars') {
 			setOffsetBookmarks(offsetBookmarks + limit);
 			getDataBookmarks(offsetBookmarks + limit, false, true, search);
 		}
@@ -1161,7 +1161,7 @@ function WelcomeFeed(props) {
 										/>
 								  ))}
 						</div>
-						{hasMoreUploads && myUploads === true && currentUser !== null && (
+						{hasMoreUploads && feedTab === 'my_uploads' && currentUser !== null && (
 							<div className="w-full flex justify-center">
 								{
 									<button
