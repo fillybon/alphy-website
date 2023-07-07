@@ -26,11 +26,9 @@ function WelcomeFeed(props) {
 	const [hasMorePersonal, setHasMorePersonal] = useState(false);
 	const [isLoadingPersonal, setIsLoadingPersonal] = useState(true);
 	const [dataPersonal, setDataPersonal] = useState([]);
-	const [global, setGlobal] = useState(false);
 	const [submitted, setSubmitted] = useState(false);
 	const [called, setCalled] = useState(false);
 	const [ready, setReady] = useState(false);
-	const [myUploads, setMyUploads] = useState(false);
 	const [offsetUploads, setOffsetUploads] = useState(0);
 	const [hasMoreUploads, setHasMoreUploads] = useState(false);
 	const [dataUploads, setDataUploads] = useState([]);
@@ -43,13 +41,20 @@ function WelcomeFeed(props) {
 	const [file, setFile] = useState(null);
 	const [fileUploading, setFileUploading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [myBookmarks, setMyBookmarks] = useState(false);
 	const [offsetBookmarks, setOffsetBookmarks] = useState(0);
 	const [hasMoreBookmarks, setHasMoreBookmarks] = useState(false);
 	const [dataBookmarks, setDataBookmarks] = useState([]);
 	const [isLoadingBookmarks, setIsLoadingBookmarks] = useState(true);
 	const [firstTimeBookmarks, setFirstTimeBookmarks] = useState(true);
+
 	const [myWorks, setMyWorks] = useState(true);
+	const [myUploads, setMyUploads] = useState(false);
+	const [myBookmarks, setMyBookmarks] = useState(false);
+	const [global, setGlobal] = useState(false);
+
+	const [feedTab, setFeedTab] = useState(
+		localStorage.getItem('feedTab') !== null ? localStorage.getItem('feedTab') : 'my_works',
+	);
 	const [barPosition, setBarPosition] = useState('');
 
 	let calledAndEmpty = true;
@@ -152,42 +157,31 @@ function WelcomeFeed(props) {
 	const searchInputRef = React.useRef(null);
 
 	const navigateFeeds = (state) => {
-		if (state == 'global') {
-			setGlobal(true);
-			setMyWorks(false);
-			setMyUploads(false);
-			setMyBookmarks(false);
-			localStorage.setItem('feedTab', 'global');
-
-			setOffset(0);
-			getData(0, true, true);
-		} else if (state == 'my_works') {
-			setGlobal(false);
-			setMyWorks(true);
-			setMyUploads(false);
-			setMyBookmarks(false);
-			localStorage.setItem('feedTab', 'my_works');
-
-			setOffsetPersonal(0);
-			getDataPersonal(0, true, true);
-		} else if (state == 'my_uploads') {
-			setGlobal(false);
-			setMyWorks(false);
-			setMyUploads(true);
-			setMyBookmarks(false);
-			localStorage.setItem('feedTab', 'my_uploads');
-
-			setOffsetUploads(0);
-			getDataUploads(0, true, true);
-		} else if (state == 'my_bookmarks') {
-			setGlobal(false);
-			setMyWorks(false);
-			setMyUploads(false);
-			setMyBookmarks(true);
-			localStorage.setItem('feedTab', 'my_bookmarks');
-
-			setOffsetBookmarks(0);
-			getDataBookmarks(0, true, true);
+		switch (state) {
+			case 'global':
+				setFeedTab('global');
+				localStorage.setItem('feedTab', 'global');
+				setOffset(0);
+				getData(0, true, true);
+				break;
+			case 'my_works':
+				setFeedTab('my_works');
+				localStorage.setItem('feedTab', 'my_works');
+				setOffsetPersonal(0);
+				getDataPersonal(0, true, true);
+				break;
+			case 'my_uploads':
+				setFeedTab('my_uploads');
+				localStorage.setItem('feedTab', 'my_uploads');
+				setOffsetUploads(0);
+				getDataUploads(0, true, true);
+				break;
+			case 'my_bookmarks':
+				setFeedTab('my_bookmarks');
+				localStorage.setItem('feedTab', 'my_bookmarks');
+				setOffsetBookmarks(0);
+				getDataBookmarks(0, true, true);
+				break;
 		}
 	};
 
@@ -405,7 +399,7 @@ function WelcomeFeed(props) {
 						<button
 							onClick={() => navigateFeeds('my_works')}
 							class={`inline-block p-1 sm:p-4 py-4  ${
-								myWorks
+								feedTab === 'my_works'
 									? 'text-blueLike dark:bg-darkMode dark:text-zinc-300 font-light'
 									: 'hover:text-gray-600 hover:border-gray-300 font-light'
 							} ${
@@ -419,7 +413,7 @@ function WelcomeFeed(props) {
 						<button
 							onClick={() => navigateFeeds('my_uploads')}
 							class={`relative infline-flex p-1 py-4 sm:p-4  ${
-								myUploads
+								feedTab === 'my_uploads'
 									? 'text-blueLike dark:bg-darkMode dark:text-zinc-300 font-light'
 									: 'hover:text-gray-600 hover:border-gray-300 font-light '
 							}   rounded-t-lg  dark:text-zinc-200 dark:border-blue-000`}
@@ -434,7 +428,7 @@ function WelcomeFeed(props) {
 						<button
 							onClick={() => navigateFeeds('my_bookmarks')}
 							class={`inline-block p-1 sm:p-4 py-4  ${
-								myBookmarks
+								feedTab === 'my_bookmarks'
 									? 'text-blueLike dark:bg-darkMode dark:text-zinc-300 font-light'
 									: 'hover:text-gray-600 hover:border-gray-300 font-light '
 							}   rounded-t-lg  dark:text-zinc-200 dark:border-blue-000`}
@@ -447,7 +441,7 @@ function WelcomeFeed(props) {
 						<button
 							onClick={() => navigateFeeds('global')}
 							class={`inline-block p-1 py-4 sm:p-4 ${
-								global
+								feedTab === 'global'
 									? 'text-blueLike dark:bg-darkMode dark:text-zinc-300 font-light'
 									: 'hover:text-gray-600 hover:border-gray-300 font-light '
 							}   rounded-t-lg  dark:text-zinc-200 dark:border-blue-000`}
@@ -464,7 +458,7 @@ function WelcomeFeed(props) {
 								${localStorage.getItem('feedTab') === 'my_works' ? 'rounded-tl-none' : ''}	
 							`}
 			>
-				{myUploads ? null : (
+				{feedTab === 'my_uploads' ? null : (
 					<form
 						className="flex items-center"
 						onKeyDown={handleKeyDown}
@@ -475,21 +469,26 @@ function WelcomeFeed(props) {
 							if (searchInputRef.current.value.length === 0) {
 								setSearch('');
 							}
-							if (global) {
-								setOffset(0);
-								getData(0, true, true);
-							} else if (myWorks) {
-								setCalled(false);
-								setOffsetPersonal(0);
-								getDataPersonal(0, true, true);
-							} else if (myUploads) {
-								setCalled(false);
-								setOffsetUploads(0);
-								getDataUploads(0, true, true, search);
-							} else if (myBookmarks) {
-								setCalled(false);
-								setOffsetBookmarks(0);
-								getDataBookmarks(0, true, true, search);
+							switch (feedTab) {
+								case 'global':
+									setOffset(0);
+									getData(0, true, true);
+									break;
+								case 'my_works':
+									setCalled(false);
+									setOffsetPersonal(0);
+									getDataPersonal(0, true, true);
+									break;
+								case 'my_uploads':
+									setCalled(false);
+									setOffsetUploads(0);
+									getDataUploads(0, true, true, search);
+									break;
+								case 'my_bookmarks':
+									setCalled(false);
+									setOffsetBookmarks(0);
+									getDataBookmarks(0, true, true, search);
+									break;
 							}
 
 							setSubmitted(true);
@@ -534,7 +533,7 @@ function WelcomeFeed(props) {
 
 				<div className={`buttons flex justify-between mt-2 `}></div>
 
-				{global && (
+				{feedTab === 'global' && (
 					<div className="main-page-feed  w-full">
 						<div
 							className={`
@@ -555,7 +554,7 @@ function WelcomeFeed(props) {
 											.map((item, index) => (
 												<FeedItem
 													currentUser={currentUser}
-													myBookmarks={myBookmarks}
+													myBookmarks={feedTab === 'my_bookmarks' ? true : false}
 													key={index}
 													item={item}
 													mainFeedInput={inputValue}
@@ -568,7 +567,7 @@ function WelcomeFeed(props) {
 								: data.map((item, index) => (
 										<FeedItem
 											currentUser={currentUser}
-											myBookmarks={myBookmarks}
+											myBookmarks={feedTab === 'my_bookmarks' ? true : false}
 											key={index + 1000}
 											item={item}
 										/>
@@ -589,7 +588,7 @@ function WelcomeFeed(props) {
 					</div>
 				)}
 
-				{myWorks && (
+				{feedTab === 'my_works' && (
 					<div className="main-page-feed  w-full">
 						<div
 							className={`
@@ -625,7 +624,7 @@ function WelcomeFeed(props) {
 											.map((item, index) => {
 												<FeedItem
 													currentUser={currentUser}
-													myBookmarks={myBookmarks}
+													myBookmarks={feedTab === 'my_bookmarks' ? true : false}
 													key={index}
 													item={item}
 												/>;
@@ -641,7 +640,7 @@ function WelcomeFeed(props) {
 								: dataPersonal.map((item, index) => (
 										<FeedItem
 											currentUser={currentUser}
-											myBookmarks={myBookmarks}
+											myBookmarks={feedTab === 'my_bookmarks' ? true : false}
 											key={index + 1000}
 											item={item}
 										/>
@@ -652,7 +651,7 @@ function WelcomeFeed(props) {
 						currentUser !== null &&
 						ready == true &&
 						dataPersonal.length == 0 &&
-						myUploads == false ? (
+						feedTab !== 'my_uploads' ? (
 							<div
 								className={`flex flex-col ${
 									calledAndEmpty === false ? 'hidden' : ''
@@ -690,7 +689,7 @@ function WelcomeFeed(props) {
 					</div>
 				)}
 
-				{myBookmarks && (
+				{feedTab === 'my_bookmarks' && (
 					<div className="main-page-feed  w-full">
 						<div
 							className={`
@@ -722,7 +721,7 @@ function WelcomeFeed(props) {
 											.map((item, index) => {
 												<FeedItem
 													currentUser={currentUser}
-													myBookmarks={myBookmarks}
+													myBookmarks={feedTab === 'my_bookmarks' ? true : false}
 													key={index}
 													item={item}
 												/>;
@@ -738,7 +737,7 @@ function WelcomeFeed(props) {
 								: dataBookmarks.map((item, index) => (
 										<FeedItem
 											currentUser={currentUser}
-											myBookmarks={myBookmarks}
+											myBookmarks={feedTab === 'my_bookmarks' ? true : false}
 											key={index + 1000}
 											item={item}
 										/>
@@ -749,7 +748,7 @@ function WelcomeFeed(props) {
 						currentUser !== null &&
 						ready == true &&
 						dataBookmarks.length == 0 &&
-						myBookmarks == true ? (
+						feedTab === 'my_bookmarks' ? (
 							<div
 								className={`flex flex-col ${
 									calledAndEmpty === false ? 'hidden' : ''
@@ -784,7 +783,7 @@ function WelcomeFeed(props) {
 					</div>
 				)}
 
-				{myUploads && (
+				{feedTab === 'my_uploads' && (
 					<div className="">
 						<div className="mt-5 mb-5  ">
 							<Popover placement="bottom-start">
@@ -1083,7 +1082,7 @@ function WelcomeFeed(props) {
 											if (searchInputRef.current.value.length === 0) {
 												setSearch('');
 											}
-											if (global == true) {
+											if (feedTab === 'global') {
 												setOffset(0);
 												getData(0, true, true);
 											} else {
@@ -1140,7 +1139,7 @@ function WelcomeFeed(props) {
 											.map((item, index) => {
 												<FeedItem
 													currentUser={currentUser}
-													myBookmarks={myBookmarks}
+													myBookmarks={feedTab === 'my_bookmarks' ? true : false}
 													key={index}
 													item={item}
 												/>;
@@ -1156,7 +1155,7 @@ function WelcomeFeed(props) {
 								: dataUploads.map((item, index) => (
 										<FeedItem
 											currentUser={currentUser}
-											myBookmarks={myBookmarks}
+											myBookmarks={feedTab === 'my_bookmarks' ? true : false}
 											key={index + 1000}
 											item={item}
 										/>
