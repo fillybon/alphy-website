@@ -6,11 +6,11 @@
 	padding: 0;
 	margin: 0;
 	font-family: 'Roboto', sans-serif;
-	
 }
+
 html {
-    overflow: hidden;
-    height: 100%;
+	overflow: hidden;
+	height: 100%;
 }
 
 body {
@@ -20,46 +20,51 @@ body {
 	overflow-x: hidden;
 	overscroll-behavior: none;
 }
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: rgb(25, 25, 25);
+	}
+}
+
 .side-feed {
 	/* Hide the scrollbar */
 	scrollbar-width: none; /* Firefox */
 	-ms-overflow-style: none; /* Internet Explorer and Edge */
-  }
-  
-  .side-feed::-webkit-scrollbar {
+}
+
+.side-feed::-webkit-scrollbar {
 	display: none; /* Chrome, Safari, and Opera */
-  }
+}
 
 .answer-area li {
 	font-weight: 400;
 	margin: 10px;
 	list-style: square;
-
 }
 
 .answer-area p {
 	padding-bottom: 5px;
 	padding-top: 4px;
-	font-weight: 400
+	font-weight: 400;
 }
 
 .answer-area p::before {
-	content: " ";
-
+	content: ' ';
 }
 
 .answer-area h1,
 h2,
 h3 {
 	font-weight: 600;
-	font-size: large
+	font-size: large;
 }
 
 .answer-area ol,
 ul {
 	margin: 10px;
 	padding-top: 2px;
-	padding-bottom: 2px
+	padding-bottom: 2px;
 }
 
 /* 
@@ -84,11 +89,7 @@ MAIN PAGE
 	/* position: sticky; */
 	top: 0;
 
-
-
 	z-index: 1;
-
-
 }
 
 .collapse-menu {
@@ -101,10 +102,6 @@ MAIN PAGE
 	justify-content: space-between;
 	padding: 10px;
 }
-
-
-
-
 
 .navbar-link {
 	padding: 10px;
@@ -202,7 +199,6 @@ MAIN PAGE
 	font-size: 20px;
 }
 
-
 .welcome-img {
 	width: 90%;
 	margin-left: 100px;
@@ -285,7 +281,6 @@ table tr {
 	width: 0;
 	height: 0;
 }
-
 
 .article-block-1 {
 	height: parent;
@@ -380,12 +375,13 @@ label {
 	overflow: hidden;
 }
 
-.animation1>div {
+.animation1 > div {
 	animation: text-animation 10s infinite;
 }
 
 @keyframes text-animation {
-	0% {}
+	0% {
+	}
 
 	/* transcribe -> summarize */
 
@@ -429,7 +425,7 @@ label {
 }
 
 .nav-tabs {
-	display: none
+	display: none;
 }
 
 /* 
@@ -455,11 +451,10 @@ CONTENT PAGE
 	width: 0px;
 	height: 0px;
 }
-.question-answering{
-
+.question-answering {
 	scrollbar-width: none;
 }
-.question-answering::-webkit-scrollbar{
+.question-answering::-webkit-scrollbar {
 	display: none;
 	width: 0;
 	height: 0;
@@ -492,7 +487,6 @@ CONTENT PAGE
 	font-weight: 600;
 	margin-bottom: 10px;
 }
-
 
 .create-article {
 	align-items: center;
@@ -582,79 +576,73 @@ CONTENT PAGE
 }
 
 .summary-text {
-	font-family: 'Roboto'
+	font-family: 'Roboto';
 }
-.summary-text code{
-
+.summary-text code {
 	white-space: pre-wrap;
-	padding-left:10px;
-	font-family: 'Roboto'
-
+	padding-left: 10px;
+	font-family: 'Roboto';
 }
 
-.select-option span{
+.select-option span {
 	padding-left: 10px;
-	padding-top:5px;
-	padding-bottom:0px;
+	padding-top: 5px;
+	padding-bottom: 0px;
 }
 
 .or-area {
 	display: flex;
 	align-items: center;
-  }
-  
-  .or-area::before {
+}
+
+.or-area::before {
 	content: '';
 	flex-grow: 1;
 	height: 1px;
 	background-color: black;
 	margin-right: 10px;
-  }
-  
-.summary-text h2{
-	
-	font-weight:600;
+}
+
+.summary-text h2 {
+	font-weight: 600;
 	font-size: 16px;
-	margin-top:30px;
-	font-family: 'Roboto'
+	margin-top: 30px;
+	font-family: 'Roboto';
 }
 
-.summary-text h3{
-	
-	font-weight:600;
+.summary-text h3 {
+	font-weight: 600;
 	font-size: 16px;
-	margin-top:30px;
-	font-family: 'Roboto'
+	margin-top: 30px;
+	font-family: 'Roboto';
 }
 
-.summary-text h4{
-	font-weight:600;
+.summary-text h4 {
+	font-weight: 600;
 	font-size: 16px;
-	margin-top:30px;
-	font-family: 'Roboto'
+	margin-top: 30px;
+	font-family: 'Roboto';
 }
 
-.summary-text h5{
-	font-weight:600;
+.summary-text h5 {
+	font-weight: 600;
 	font-size: 16px;
-	margin-top:30px;
-	font-family: 'Roboto'
+	margin-top: 30px;
+	font-family: 'Roboto';
 }
 
-.slick-arrow::before{
-	background:"black"
+.slick-arrow::before {
+	background: 'black';
 }
 
-
-.summary-text 	ul{
-	list-style-type:disc;
-
+.summary-text ul {
+	list-style-type: disc;
 }
 .summary-text li::before {
-	content: "•"; /* Bullet point character */
+	content: '•'; /* Bullet point character */
 	color: #a1a1aa; /* Change color here */
 	margin-right: 0.5em; /* Add some spacing between the bullet and the text */
-  }
+}
 
 .sign-in-input input {
 	position: relative;
@@ -743,7 +731,6 @@ CONTENT
 	width: 30px;
 }
 
-
 footer {
 	background: black;
 }
@@ -796,7 +783,6 @@ DIFFERENT SCREEN SIZES
 		margin-left: 30px;
 	}
 
-
 	.App {
 		padding: 0 !important;
 		margin: 0 !important;
@@ -816,7 +802,6 @@ DIFFERENT SCREEN SIZES
 		text-align: center;
 	}
 
-	
 	.menuToggler {
 		display: none;
 	}
@@ -932,7 +917,7 @@ DIFFERENT SCREEN SIZES
 	position: absolute;
 	height: 4px;
 	width: 100%;
-	background: #20262E;
+	background: #20262e;
 	border-radius: 2px;
 	opacity: 1;
 	left: 0;
