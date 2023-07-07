@@ -5,7 +5,7 @@ module.exports = {
 	],
 	theme: {
 		screens: {
-			
+
 			sm: '640px',
 			md: '768px',
 			lg: '1000px',
@@ -17,6 +17,10 @@ module.exports = {
 		darkMode: 'class',
 
 		extend: {
+			animation: {
+				highlight: 'highlight 1s ease-in-out',
+				'highlight-delayed': 'highlight 1s ease-in-out 1000ms',
+			},
 			keyframes: {
 				highlight: {
 					'0%': {
@@ -86,7 +90,7 @@ module.exports = {
 				mainText: '#ced4da',
 				sideColor: '#000',
 				darker: '#03001C',
-				darkMode:"#191919",
+				darkMode: "#191919",
 
 				// palette - sunset
 				bordoLike: '#20262E',
@@ -97,16 +101,12 @@ module.exports = {
 				//palette - fener
 				whiteLike: '#F9F8F8',
 				blueLike: '#2f3542',
-				mildDarkMode:"#202020",
-//				midestDarkMode:"#1a1a1a",
+				mildDarkMode: "#202020",
+				//				midestDarkMode:"#1a1a1a",
 			},
 			backgroundImage: (theme) => ({
 				searchBg: "url('./img/search.svg')",
 			}),
-		},
-		animation: {
-			highlight: 'highlight 1s ease-in-out',
-			'highlight-delayed': 'highlight 1s ease-in-out 1000ms',
 		},
 	},
 };
