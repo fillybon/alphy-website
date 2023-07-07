@@ -111,7 +111,7 @@ function Navbar({ collapsed, setCollapsed }) {
 			} justify-between dark:bg-darkMode`}
 		>
 			<div
-				className={`flex dropshadow-l justify-between flex-row 	 top-0 z-40 text-blueLike bg-[#fafafa] dark:bg-darkMode dark:text-zinc-300 dark:text-gray-200 text-sm md:text-md font-normal ${
+				className={`flex dropshadow-l justify-between flex-row 	 top-0 z-40 text-blueLike bg-[#fafafa] dark:bg-darkMode dark:text-gray-200 text-sm md:text-md font-normal ${
 					isYt || isSp || isUp ? 'h-[8vh] min-h-[40px]' : 'h-[8vh] min-h-[40px]'
 				} ${collapsed ? ' ' : '  '}`}
 			>
@@ -174,7 +174,7 @@ function Navbar({ collapsed, setCollapsed }) {
 							<div
 								type="button"
 								onClick={() => handleScroll('feedback')}
-								className={`hidden lg:block lg:flex cursor-pointer text-center font-normal mr-6 text-blueLike dark:bg-darkMode dark:text-zinc-300 dark:text-gray-200 lg:block pt-2`}
+								className={`hidden lg:block cursor-pointer text-center font-normal mr-6 text-blueLike dark:bg-darkMode dark:text-gray-200 pt-2`}
 							>
 								Reach Us
 							</div>
@@ -188,14 +188,14 @@ function Navbar({ collapsed, setCollapsed }) {
 					</div> */}
 							<div
 								type="button"
-								className={`hidden lg:block lg:flex cursor-pointer text-center font-normal mr-6 text-blueLike dark:bg-darkMode dark:text-zinc-300 dark:text-gray-200 lg:block pt-2`}
+								className={`hidden cursor-pointer text-center font-normal mr-6 text-blueLike dark:bg-darkMode dark:text-gray-200 lg:flex pt-2`}
 							>
 								{' '}
 								<Link to={currentUser ? '/account' : '/plans'} className="dark:text-gray-200">
 									{currentUser ? 'Account' : 'Plans'}
 								</Link>{' '}
 							</div>
-							<div className="hidden lg:block lg:flex font-normal mr-6 cursor-pointer">
+							<div className="hidden lg:flex font-normal mr-6 cursor-pointer">
 								{isDarkMode === 'dark' ? (
 									<svg
 										className="mr-1 hover:text-zinc-50 duration-200 transition ease-in"
@@ -235,7 +235,7 @@ function Navbar({ collapsed, setCollapsed }) {
 								)}
 							</div>
 							{currentUser ? (
-								<div className="hidden lg:block lg:block lg:flex  ">
+								<div className="hidden lg:flex">
 									<button
 										className="hidden lg:block text-slate-600 dark:text-gray-200 hover:text-slate-400 duration-200 transition ease-in font-normal py-2 cursor-pointer rounded focus:outline-none focus:shadow-outline mr-4 dark:hover:text-zinc-400"
 										onClick={handleSignOut}
