@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
-import Languages from './Languages';
 import toast, { Toaster } from 'react-hot-toast';
-import Loading from '../Loading';
-import ReactLoading from 'react-loading';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
 import { Popover } from 'flowbite';
 import { Button } from '@material-tailwind/react';
+import { useTranslation } from 'react-i18next';
+
+import { useAuth } from '../../hooks/useAuth';
 
 export default function Welcome({ hasActiveSub, credit }) {
 	const navigate = useNavigate();
@@ -28,6 +26,8 @@ export default function Welcome({ hasActiveSub, credit }) {
 			window.location.reload();
 		});
 	};
+
+	const { t, i18n } = useTranslation();
 
 	const handleCloseBanner = () => {
 		if (localStorage.getItem('bannerClosed') === null) {
@@ -170,27 +170,23 @@ export default function Welcome({ hasActiveSub, credit }) {
 			{' '}
 			<div className="flex flex-col justify-center text-bordoLike dark:text-zinc-300 dark:bg-darkMode font-semibold font-noto lg:text-5xl md:text-4xl text-3xl lg:px-40 xl:px-56 text-center">
 				<section className="animation1 block justify-center lg:h-[4rem] md:h-[3rem] h-[2.5rem] text-green-400 select-none drag-none mx-auto">
-					<div className="first flex justify-center pb-3 ">
-						<div className="">Transcribe</div>
+					<div className="first flex justify-center pb-3">
+						<div>{t('head1')}</div>
 					</div>
-					<div className="second  flex justify-center pb-3">
-						<div className="">Summarize</div>
+					<div className="second flex justify-center pb-3">
+						<div>{t('head2')}</div>
 					</div>
-					<div className="third  flex justify-center pb-3">
-						<div className="">Question</div>
+					<div className="third flex justify-center pb-3">
+						<div>{t('head3')}</div>
 					</div>
-					<div className="forth  flex justify-center pb-3">
-						<div className="">Transcribe</div>
+					<div className="forth flex justify-center pb-3">
+						<div>{t('head1')}</div>
 					</div>
 				</section>
-				<p className="dark:text-zinc-200 lg:text-4xl md:text-3xl text-2xl">
-					audiovisual content and 10x your learning, research, and creativity
-				</p>
+				<p className="dark:text-zinc-200 lg:text-4xl md:text-3xl text-2xl">{t('head bottom')}</p>
 			</div>
 			<p className="text-zinc-600 dark:bg-darkMode dark:text-zinc-300 text-l md:text-[18px] lg:text-xl text-center mb-10 mt-10 md:pr-10 md:pl-10 lg:pr-20 lg:pl-20">
-				Submit a link to a YouTube video or Twitter Spaces, or upload an audio file, and Alphy will transcribe,
-				summarize, and prepare the content for questioning within minutes. We will notify you with email when
-				it's ready!{' '}
+				{t('description')}{' '}
 			</p>
 			<Toaster />
 			<div className="items-center container justify-center w-full mx-auto md:ml-10 lg:ml-40 xl:ml-60">
@@ -217,9 +213,9 @@ export default function Welcome({ hasActiveSub, credit }) {
 										clipRule="evenodd"
 									></path>
 								</svg>
-								<span className="sr-only">Show information</span>
+								<span className="sr-only">{t('Show information')}</span>
 							</button>
-							Instructions for Alphy{' '}
+							{t('how-to text')}{' '}
 						</p>
 						{currentUser && (
 							<span className="text-sm pl-2 mb-2 text-gray-600 dark:text-zinc-300">
@@ -238,52 +234,56 @@ export default function Welcome({ hasActiveSub, credit }) {
 						>
 							<div className="p-3 space-y-2">
 								<p className="font-semibold text-l text-zinc-700 dark:text-zinc-200">
-									<span>Basic Plan</span>:
+									<span>{t('Basic Plan')}</span>:
 								</p>
 								<p></p>
 								<p>
 									{' '}
-									• Make sure the content you are submitting doesn't exceed <strong>
-										1 hour
-									</strong>.{' '}
+									• {t("Make sure the content you are submitting doesn't exceed")}{' '}
+									<strong>{t('1 hour')}</strong>.{' '}
 								</p>
 								{/* <strong className="underline">1 hour</strong> if you are on a free tier, and <strong className="underline">4 hours</strong> if premium. Otherwise, you will get an error. </p> */}
 								<p>
 									{' '}
-									• Make sure it has more than <strong>10,000 views</strong>.
+									• {t('Make sure it has more than')} <strong>10,000 {t('views')}</strong>.
 								</p>
-								<p> • Alphy might fail to process content with location limits.</p>
+								<p> • {t('Alphy might fail to process content with location limits.')}</p>
 								<p className="font-semibold text-l dark:text-zinc-300 text-gray-900 pt-3">
-									<span className="text-green-400">Premium Plan</span>:
+									<span className="text-green-400">{t('Premium Plan')}</span>:
 								</p>
-								<p>• No duration limit.</p>
-								<p>• No view limit. </p>
+								<p>• {t('No duration limit.')}</p>
+								<p>• {t('No view limit.')} </p>
 								<p>
-									• You have access to{' '}
-									<span className="text-green-400">unlimited Twitter Spaces transcription</span>.
+									• {t('You have access to')}{' '}
+									<span className="text-green-400">
+										{t('unlimited Twitter Spaces transcription')}
+									</span>
+									.
 								</p>
-								<p> • Alphy might fail to process content with location limits.</p>
+								<p> • {t('Alphy might fail to process content with location limits.')}</p>
 								<p className="pt-2">
-									Check the{' '}
+									{t('Check the')}{' '}
 									<a className="underline font-semibold" href={currentUser ? '/account' : '/plans'}>
-										{currentUser ? 'Account' : 'Plans'}
+										{currentUser ? t('Account') : t('Plans')}
 									</a>{' '}
-									page for more info about Premium benefits.
+									{t('page for more info about Premium benefits.')}
 								</p>
 
 								<p className="font-semibold text-l text-zinc-700 dark:text-zinc-200 pt-3">
-									When the content is ready
+									{t('When the content is ready')}
 								</p>
 								<p>
-									If you see a video that has inaccurate transcription and summary, please let us
-									know. We will fix it as soon as possible.
+									{t(
+										'If you see a video that has inaccurate transcription and summary, please let us know. We will fix it as soon as possible.',
+									)}
 								</p>
 
 								<a
 									href="https://twitter.com/alphyapp"
+									target="_blank"
 									className="flex pt-2 items-center font-medium text-green-400 hover:text-green-300"
 								>
-									Reach us if you have any questions{' '}
+									{t('Reach us if you have any questions')}{' '}
 									<svg
 										className="w-4 h-4 ml-1 pt-1"
 										aria-hidden="true"
@@ -338,7 +338,7 @@ export default function Welcome({ hasActiveSub, credit }) {
 										dark:after:border-mildDarkMode peer-focus:before:!border-green-400 after:border-blue-gray-200
 										peer-focus:after:!border-green-400"
 						>
-							Insert a link to start
+							{t('Insert a link to start')}
 						</label>
 					</div>
 					<div
@@ -365,7 +365,7 @@ export default function Welcome({ hasActiveSub, credit }) {
 									}}
 									className="bg-zinc-700 px-6 lg:px-10 dark:bg-green-400 dark:text-zinc-300 py-3  text-sm lg:text-[15px] "
 								>
-									Submit
+									{t('Submit')}
 								</Button>
 							</div>
 						) : (
@@ -375,7 +375,7 @@ export default function Welcome({ hasActiveSub, credit }) {
 										className="bg-zinc-700 hover:bg-zinc-500 px-6 lg:px-10 py-3 dark:bg-green-400 dark:hover:bg-green-500
 														dark:text-zinc-300 text-sm lg:text-[15px] transition-colors ease-out"
 									>
-										Sign in to submit
+										{t('Sign in to submit')}
 									</Button>
 								</a>
 

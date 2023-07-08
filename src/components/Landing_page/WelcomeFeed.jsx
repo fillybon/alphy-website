@@ -1,16 +1,13 @@
-import React, { Fragment, useState, useRef, useCallback } from 'react';
-import { useEffect } from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
-import FeedItem from '../Article_components/FeedTabs/FeedItem';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import axios from 'axios';
-import SkeletonItem from '../Article_components/FeedTabs/SkeletonItem';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-import { set } from 'lodash';
-import Robot from '../../img/cute robot grey.png';
-import SeriousRobot from '../../img/serious_robot.png';
-import { Button, Popover, PopoverHandler, PopoverContent, Carousel } from '@material-tailwind/react';
+import { Button, Popover, PopoverHandler, PopoverContent } from '@material-tailwind/react';
 import { useDropzone } from 'react-dropzone';
+import { useTranslation } from 'react-i18next';
+
+import FeedItem from '../Article_components/FeedTabs/FeedItem';
+import SkeletonItem from '../Article_components/FeedTabs/SkeletonItem';
+import Robot from '../../img/cute robot grey.png';
 
 function WelcomeFeed(props) {
 	const [data, setData] = useState([]);
@@ -51,6 +48,8 @@ function WelcomeFeed(props) {
 	const [dataBookmarks, setDataBookmarks] = useState([]);
 	const [isLoadingBookmarks, setIsLoadingBookmarks] = useState(true);
 	const [firstTimeBookmarks, setFirstTimeBookmarks] = useState(true);
+
+	const { t, i18n } = useTranslation();
 
 	const [feedTab, setFeedTab] = useState(
 		localStorage.getItem('feedTab') !== null ? localStorage.getItem('feedTab') : 'my_works',
@@ -406,7 +405,7 @@ function WelcomeFeed(props) {
 								currentUser == null || dataPersonal.length == 0 ? '' : ''
 							}  rounded-t-lg  dark:text-zinc-200 dark:border-blue-000`}
 						>
-							My Works
+							{t('My Works')}
 						</button>
 					</li>
 					<li class="w-1/4 sm:w-1/4 lg:w-[150px]">
@@ -418,9 +417,9 @@ function WelcomeFeed(props) {
 									: 'hover:text-gray-600 hover:border-gray-300 font-light '
 							}   rounded-t-lg  dark:text-zinc-200 dark:border-blue-000`}
 						>
-							<span> My Uploads </span>
+							<span> {t('My Uploads')} </span>
 							<div class="absolute inline-flex items-center justify-center w-10 h-6 text-xs font-semibold text-white bg-green-400 rounded-full -top-2 -right-3">
-								New!
+								{t('New')}!
 							</div>
 						</button>
 					</li>
@@ -433,7 +432,7 @@ function WelcomeFeed(props) {
 									: 'hover:text-gray-600 hover:border-gray-300 font-light '
 							}   rounded-t-lg  dark:text-zinc-200 dark:border-blue-000`}
 						>
-							Bookmarks
+							{t('Bookmarks')}
 						</button>
 					</li>
 
@@ -446,7 +445,7 @@ function WelcomeFeed(props) {
 									: 'hover:text-gray-600 hover:border-gray-300 font-light '
 							}   rounded-t-lg  dark:text-zinc-200 dark:border-blue-000`}
 						>
-							Global
+							{t('Global')}
 						</button>
 					</li>
 				</ul>
@@ -495,7 +494,7 @@ function WelcomeFeed(props) {
 						}}
 					>
 						<label htmlFor="voice-search" className="sr-only">
-							Search
+							{t('Search')}
 						</label>
 						<div className="relative w-full  ">
 							<div class="relative w-full min-w-[200px] h-11 ">
@@ -504,7 +503,7 @@ function WelcomeFeed(props) {
 									onChange={(e) => {
 										setSearch(e.target.value);
 									}}
-									placeholder="Search our database..."
+									placeholder={t('Search our database...')}
 									className=" peer w-full h-full bg-white dark:bg-darkMode text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-400 placeholder-shown:border-t-blue-gray-400 border focus:border-2 text-sm px-3 py-2.5 rounded-[7px] dark:border-darkMode focus:border-blue-000 dark:focus:border-blue-000"
 								/>
 								{/* <label class="text-zinc-400 flex w-full h-full select-none pointer-events-none absolute left-0 font-normal peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-blue-gray-400 peer-focus:text-blue-000 before:border-green-400 peer-focus:before:!border-blue-000 after:border-green-400 peer-focus:after:!border-blue-000">Search our database...</label> */}
@@ -580,7 +579,7 @@ function WelcomeFeed(props) {
 										className="justify-center flex text-blueLike dark:text-zinc-300 font-semibold  mt-10 underline"
 										onClick={loadMore}
 									>
-										{'Load more'}
+										{t('Load more')}
 									</button>
 								}
 							</div>
@@ -606,14 +605,16 @@ function WelcomeFeed(props) {
 							{currentUser == null && called == true && (
 								<div className="flex flex-col  col-span-2 mx-auto items-center">
 									<p className="text-center text-zinc-500 dark:text-zinc-400 items-center margin-auto text-l mt-5 mb-5 w-full  col-span-2">
-										Sign in to see the content you previously submitted.<br></br>Or navigate to{' '}
+										{t('Sign in to see the content you previously submitted.')}
+										<br></br>
+										{t('Or navigate to')}{' '}
 										<a
 											onClick={() => navigateFeeds('global')}
 											className="underline text-green-400 cursor-pointer"
 										>
-											Global
+											{t('Global')}
 										</a>{' '}
-										to explore Alphy's database.
+										{t("to explore Alphy's database.")}
 									</p>
 									<img className="opacity-50 dark:opacity-30" width={400} src={Robot}></img>
 								</div>
@@ -658,14 +659,16 @@ function WelcomeFeed(props) {
 								} col-span-2 mx-auto block items-center`}
 							>
 								<p className="text-center text-zinc-500 dark:text-zinc-400 items-center margin-auto text-l mt-5 mb-5 w-full  col-span-2">
-									Looks like you haven't submitted any content yet.<br></br>Check{' '}
+									{t("Looks like you haven't submitted any content yet.")}
+									<br></br>
+									{t('check other')}{' '}
 									<a
 										onClick={() => navigateFeeds('global')}
 										className="underline text-green-400 cursor-pointer"
 									>
-										Global
+										{t('Global')}
 									</a>{' '}
-									to get inspiration from the content other users unlocked with Alphy.{' '}
+									{t('to get inspiration from the content other users unlocked with Alphy.')}{' '}
 									{hasMorePersonal
 										? "If you've submitted content previously, simply refresh the page."
 										: ''}
@@ -681,7 +684,7 @@ function WelcomeFeed(props) {
 										className="justify-center flex text-blueLike  dark:text-zinc-300 font-semibold  mt-10 underline"
 										onClick={loadMore}
 									>
-										{'Load more'}
+										{t('Load more')}
 									</button>
 								}
 							</div>
@@ -708,9 +711,9 @@ function WelcomeFeed(props) {
 								<div className="flex flex-col  col-span-2 mx-auto items-center">
 									<p className="text-center text-zinc-500 dark:text-zinc-400 items-center margin-auto text-l mt-5 mb-5 w-full  col-span-2">
 										<a className="underline text-green-400" href="/u/login">
-											Sign in
+											{t('Sign in')}
 										</a>{' '}
-										to see your bookmarks.{' '}
+										{t('to see your bookmarks.')}{' '}
 									</p>
 									<img className="opacity-50 dark:opacity-30" width={400} src={Robot}></img>
 								</div>
@@ -755,14 +758,16 @@ function WelcomeFeed(props) {
 								} col-span-2 mx-auto block items-center`}
 							>
 								<p className="text-center text-zinc-500 dark:text-zinc-400 items-center margin-auto text-l mt-5 mb-5 w-full  col-span-2">
-									You haven't bookmarked any content yet.<br></br>Check{' '}
+									{t("You haven't bookmarked any content yet.")}
+									<br></br>
+									{t('Check')}{' '}
 									<a
 										onClick={() => navigateFeeds('global')}
 										className="underline text-green-400 cursor-pointer"
 									>
-										Global
+										{t('Global')}
 									</a>{' '}
-									to find conversations you want to add to your knowledge base.{' '}
+									{t('to find conversations you want to add to your knowledge base.')}{' '}
 								</p>{' '}
 								<img className="opacity-50 dark:opacity-70" width={400} src={Robot}></img>
 							</div>
@@ -775,13 +780,15 @@ function WelcomeFeed(props) {
 										className="justify-center flex text-blueLike  dark:text-zinc-300 font-semibold  mt-10 underline"
 										onClick={loadMore}
 									>
-										{'Load more'}
+										{t('Load more')}
 									</button>
 								}
 							</div>
 						)}
 					</div>
 				)}
+
+				{/* // ! Translation */}
 
 				{feedTab === 'my_uploads' && (
 					<div className="">

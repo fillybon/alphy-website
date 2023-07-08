@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import { useAuth } from '../hooks/useAuth';
-import { FaGoogle, FaTwitter } from 'react-icons/fa';
-import { GoogleLogin } from '@react-oauth/google';
-import { useState } from 'react';
 import Logo from '../img/logo.png';
 import LogoBlack from '../img/logo-inverted.png';
 
@@ -16,6 +15,7 @@ function Navbar({ collapsed, setCollapsed }) {
 
 	const [isDarkMode, setDarkMode] = useState(localStorage.theme || 'light');
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const { t, i18n } = useTranslation();
 
 	useEffect(() => {
 		if (
@@ -99,6 +99,16 @@ function Navbar({ collapsed, setCollapsed }) {
 		// navigate('/auth');
 	};
 
+	// Language swap
+	const handleLanguage = () => {
+		console.log(i18n.language);
+		if (i18n.language === 'en-US') {
+			i18n.changeLanguage('tr-TR');
+		} else {
+			i18n.changeLanguage('en-US');
+		}
+	};
+
 	// boolean to check if the user is in the /yt/id or /sp/id
 	const isYt = useLocation().pathname.includes('/yt');
 	const isSp = useLocation().pathname.includes('/sp');
@@ -176,7 +186,7 @@ function Navbar({ collapsed, setCollapsed }) {
 								onClick={() => handleScroll('feedback')}
 								className={`hidden lg:block cursor-pointer text-center font-normal mr-6 text-blueLike dark:bg-darkMode dark:text-gray-200 pt-2`}
 							>
-								Reach Us
+								{t('Reach Us')}
 							</div>
 
 							{/* 					<div
@@ -192,7 +202,7 @@ function Navbar({ collapsed, setCollapsed }) {
 							>
 								{' '}
 								<Link to={currentUser ? '/account' : '/plans'} className="dark:text-gray-200">
-									{currentUser ? 'Account' : 'Plans'}
+									{currentUser ? t('Account') : t('Plans')}
 								</Link>{' '}
 							</div>
 							<div className="hidden lg:flex font-normal mr-6 cursor-pointer">
@@ -242,7 +252,7 @@ function Navbar({ collapsed, setCollapsed }) {
 									>
 										{/* 								<FaGoogle className="inline-block mr-2 mb-1" />
 										 */}{' '}
-										Sign Out
+										{t('Sign Out')}
 									</button>
 								</div>
 							) : (
@@ -252,7 +262,7 @@ function Navbar({ collapsed, setCollapsed }) {
 								>
 									{/* 						<FaGoogle className="inline-block mr-2 mb-1" />
 									 */}{' '}
-									Sign In
+									{t('Sign In')}
 								</a>
 							)}
 
@@ -301,7 +311,7 @@ function Navbar({ collapsed, setCollapsed }) {
 									onClick={() => handleScroll('feedback')}
 									className={`cursor-pointer text-blueLike dark:bg-darkMode dark:text-zinc-300 font-normal items-center text-center mx-auto flex`}
 								>
-									Reach Us
+									{t('Reach Us')}
 								</div>
 							</div>
 
@@ -310,7 +320,7 @@ function Navbar({ collapsed, setCollapsed }) {
 									type="button"
 									className={`cursor-pointer text-blueLike dark:bg-darkMode dark:text-zinc-300 font-normal items-center text-center mx-auto flex`}
 								>
-									<Link to="/plans">{currentUser ? 'Account' : 'Plans'}</Link>{' '}
+									<Link to="/plans">{currentUser ? t('Account') : t('Plans')}</Link>{' '}
 								</div>
 							</div>
 
@@ -362,7 +372,7 @@ function Navbar({ collapsed, setCollapsed }) {
 										href={currentUser == null && '/u/login'}
 									>
 										{/* <FaGoogle className="inline-block mr-1 mb-1 w-1/6" /> */}
-										{currentUser ? 'Sign Out' : 'Sign In'}
+										{currentUser ? t('Sign Out') : t('Sign In')}
 									</a>
 								</div>
 							</div>
